@@ -13,8 +13,8 @@ namespace OOP_LAB_4
         int CursorY;
 
         Graphics g;
-        Pen RedPen;
-        Pen BlackPen;
+        Brush BlackBrush;
+        Brush RedBrush;
 
         public Form1()
         {
@@ -33,8 +33,8 @@ namespace OOP_LAB_4
             CursorY = 0;
 
             g = panel1.CreateGraphics();
-            RedPen = new Pen(Color.Red, 1);
-            BlackPen = new Pen(Color.Black, 1);
+            BlackBrush = new SolidBrush(Color.Black);
+            RedBrush = new SolidBrush(Color.Red);
         }
         public void UpdateFromCheckBoxs(object sender, EventArgs e)
         {
@@ -52,14 +52,15 @@ namespace OOP_LAB_4
             foreach (Circle c in circles)
             {
                 if (c.getColor())
-                    c.draw(g, RedPen);
+                    c.draw(g, RedBrush);
                 else
-                    c.draw(g, BlackPen);
+                    c.draw(g, BlackBrush);
             }
         }
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
+            bool count = false;
             bool check = true;
 
             CursorX = e.X;
@@ -69,12 +70,25 @@ namespace OOP_LAB_4
             {
                 if (c.inCircle(CursorX, CursorY))
                 {
-                    model.setCtrl(false);
-                    check = false;
-                    c.color_changed();
-                    if (model.get_check_multiple())
+                    if (!count && model.get_check_multiple())
                     {
-                        break;
+                        model.setCtrl(false);
+                        check = false;
+                        c.color_changed();
+                        count = true;
+                    } 
+                    else if (model.get_check_multiple())
+                    {
+                        model.setCtrl(false);
+                        check = false;
+                        c.setColor(false);
+                        continue;
+                    }
+                    else
+                    {
+                        model.setCtrl(false);
+                        check = false;
+                        c.color_changed();
                     }
                 }
                 else if (Form.ModifierKeys != Keys.Control)
@@ -192,9 +206,9 @@ namespace OOP_LAB_4
             return squareDist;
         }
 
-        public void draw(Graphics g, Pen pen)
+        public void draw(Graphics g, Brush brush)
         {
-            g.DrawEllipse(pen, x - rad, y - rad, rad * 2, rad * 2);
+            g.FillEllipse(brush, x - rad, y - rad, rad * 2, rad * 2);
         }
         public bool inCircle(int point_x, int point_y) {
             if(getSquareDistToPointFromCentre(point_x, point_y) < getSquareRad())
