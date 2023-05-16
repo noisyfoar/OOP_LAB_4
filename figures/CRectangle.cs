@@ -1,24 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OOP_LAB_4.figures
+﻿namespace OOP_LAB_4.figures
 {
-    public class CRectangle : IShape
+    public class CRectangle : Shape
     {
         public Size shapeSize { get ; set ; }
         public Point p0 { get ; set; }
+        public CONST_SHAPE name { get ; set; }
 
-        public void Draw(Graphics g)
+
+        public CRectangle(int x1, int y1, int x2, int y2)
+        {
+            shapeSize = new Size();
+            p0 = new Point();
+            name = new CONST_SHAPE();
+
+            name = CONST_SHAPE.Rectangle;
+            Size new_size = new Size();
+            Point new_p0 = new Point();
+
+            if (x1 > x2)
+            {
+                new_p0.X = x2;
+                new_size.Width = x1 - x2;
+            }
+            else
+            {
+                new_p0.X = x1;
+                new_size.Width = x2 - x1;
+            }
+            if (y1 > y2)
+            {
+                new_p0.Y = y2;
+                new_size.Height = y1 - y2;
+            }
+            else
+            {
+                new_p0.Y = y1;
+                new_size.Height = y2 - y1;
+            }
+
+            shapeSize = new_size;
+            p0= new_p0;
+        }
+        public CRectangle(Shape shape)
+        {
+            shapeSize = new Size();
+            p0 = new Point();
+            name = new CONST_SHAPE();
+            shapeSize = shape.shapeSize;
+            p0= shape.p0;
+            name = CONST_SHAPE.Rectangle;
+        }
+
+
+        public override void Draw(Graphics g)
         {
             Pen pen = new Pen(Color.Black);
             Brush brush = new SolidBrush(Color.Black);
             g.DrawRectangle(pen, p0.X, p0.Y, shapeSize.Width, shapeSize.Height);
             g.FillRectangle(brush, p0.X, p0.Y, shapeSize.Width, shapeSize.Height);
         }
-        public bool inShape(int x, int y)
+        public override bool inShape(int x, int y)
         {
             if((x >= p0.X) && ( y >= p0.Y))
                 if((x <= p0.X + shapeSize.Width ) && (y <= p0.Y + shapeSize.Height))
@@ -26,13 +67,23 @@ namespace OOP_LAB_4.figures
             return false;
         }
     }
-    public class selectedRectangle : CRectangle {
-        public void Draw(Graphics g)
+    public class selectedRectangle : CCircle {
+        public selectedRectangle(int x1, int y1, int x2, int y2) : base(x1, y1, x2, y2)
         {
+            name = CONST_SHAPE.selectedRectangle;
+        }
+        public selectedRectangle(Shape shape) : base(shape)
+        {
+            name = CONST_SHAPE.selectedRectangle;
+        }
+
+
+        public override void Draw(Graphics g)
+        {
+            base.Draw(g);
+            Rectangle rect = new Rectangle(p0, shapeSize);
             Pen pen = new Pen(Color.Red);
-            Brush brush = new SolidBrush(Color.Black);
-            g.DrawRectangle(pen, p0.X, p0.Y, shapeSize.Width, shapeSize.Height);
-            g.FillRectangle(brush, p0.X, p0.Y, shapeSize.Width, shapeSize.Height);
+            g.DrawRectangle(pen, rect);
         }
     }
 }

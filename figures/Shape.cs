@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OOP_LAB_4.figures
+﻿namespace OOP_LAB_4.figures
 {
-    public interface IShape
+    public abstract class Shape
     {
-        Size shapeSize { get; set; } // size of box where will be shape
-        Point p0 { get; set; } // topleft point
+        public CONST_SHAPE name { get; set; }
+        public Size shapeSize { get; set; } // size of box where will be shape
+        public Point p0 { get; set; } // topleft point
 
-        public void Draw(Graphics g);
+        public abstract void Draw(Graphics g);
 
         public void resize(Size imageSize, int delta)
         {
@@ -20,7 +15,7 @@ namespace OOP_LAB_4.figures
             move(imageSize, 0, 0);
         }
 
-        public void move(Size imageSize, int dx, int dy)
+        public virtual void move(Size imageSize, int dx, int dy)
         {
             Point new_p0 = new Point(p0.X + dx, p0.Y + dy);
 
@@ -40,20 +35,14 @@ namespace OOP_LAB_4.figures
             {
                 new_p0.Y = 0;
             }
-            p0= new_p0;
+            p0 = new_p0;
         }
 
-        public bool inShape(int x, int y);
-
+        public abstract bool inShape(int x, int y);
     }
     public class help_vector
     {
         public int dx, dy;
-        public help_vector(int dx = 0, int dy = 0)
-        {
-            this.dx = dx;
-            this.dy = dy;
-        }
         public help_vector(Point a, Point b)
         {
             this.dx = a.X - b.X;

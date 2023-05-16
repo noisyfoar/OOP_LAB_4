@@ -28,34 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.checkBox_CTRL = new System.Windows.Forms.CheckBox();
-            this.checkBox_Multiple = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.shapesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripTextBoxCircle = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripTextBoxRectangle = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripTextBoxTriangle = new System.Windows.Forms.ToolStripMenuItem();
+            this.label_shape = new System.Windows.Forms.Label();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // checkBox_CTRL
-            // 
-            this.checkBox_CTRL.AutoCheck = false;
-            this.checkBox_CTRL.AutoSize = true;
-            this.checkBox_CTRL.Location = new System.Drawing.Point(14, 16);
-            this.checkBox_CTRL.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.checkBox_CTRL.Name = "checkBox_CTRL";
-            this.checkBox_CTRL.Size = new System.Drawing.Size(54, 24);
-            this.checkBox_CTRL.TabIndex = 1;
-            this.checkBox_CTRL.Text = "Ctrl";
-            this.checkBox_CTRL.UseVisualStyleBackColor = true;
-            // 
-            // checkBox_Multiple
-            // 
-            this.checkBox_Multiple.AutoSize = true;
-            this.checkBox_Multiple.Location = new System.Drawing.Point(14, 49);
-            this.checkBox_Multiple.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.checkBox_Multiple.Name = "checkBox_Multiple";
-            this.checkBox_Multiple.Size = new System.Drawing.Size(72, 24);
-            this.checkBox_Multiple.TabIndex = 2;
-            this.checkBox_Multiple.Text = "Single";
-            this.checkBox_Multiple.UseVisualStyleBackColor = true;
-            this.checkBox_Multiple.CheckedChanged += new System.EventHandler(this.checkBox_Multiple_CheckedChanged);
             // 
             // panel1
             // 
@@ -63,37 +44,93 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Location = new System.Drawing.Point(14, 83);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panel1.Location = new System.Drawing.Point(12, 62);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1234, 574);
+            this.panel1.Size = new System.Drawing.Size(1080, 431);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.shapesToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1106, 24);
+            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // shapesToolStripMenuItem
+            // 
+            this.shapesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripTextBoxCircle,
+            this.toolStripTextBoxRectangle,
+            this.toolStripTextBoxTriangle});
+            this.shapesToolStripMenuItem.Name = "shapesToolStripMenuItem";
+            this.shapesToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.shapesToolStripMenuItem.Text = "Shapes";
+            // 
+            // toolStripTextBoxCircle
+            // 
+            this.toolStripTextBoxCircle.Name = "toolStripTextBoxCircle";
+            this.toolStripTextBoxCircle.Size = new System.Drawing.Size(180, 22);
+            this.toolStripTextBoxCircle.Text = "Circle";
+            this.toolStripTextBoxCircle.Click += new System.EventHandler(this.toolStripTextBoxCircle_Click);
+            // 
+            // toolStripTextBoxRectangle
+            // 
+            this.toolStripTextBoxRectangle.Name = "toolStripTextBoxRectangle";
+            this.toolStripTextBoxRectangle.Size = new System.Drawing.Size(180, 22);
+            this.toolStripTextBoxRectangle.Text = "Rectangle";
+            this.toolStripTextBoxRectangle.Click += new System.EventHandler(this.toolStripTextBoxRectangle_Click);
+            // 
+            // toolStripTextBoxTriangle
+            // 
+            this.toolStripTextBoxTriangle.Name = "toolStripTextBoxTriangle";
+            this.toolStripTextBoxTriangle.Size = new System.Drawing.Size(180, 22);
+            this.toolStripTextBoxTriangle.Text = "Triangle";
+            this.toolStripTextBoxTriangle.Click += new System.EventHandler(this.toolStripTextBoxTriangle_Click);
+            // 
+            // label_shape
+            // 
+            this.label_shape.AutoSize = true;
+            this.label_shape.Location = new System.Drawing.Point(419, 24);
+            this.label_shape.Name = "label_shape";
+            this.label_shape.Size = new System.Drawing.Size(38, 15);
+            this.label_shape.TabIndex = 2;
+            this.label_shape.Text = "label1";
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1262, 673);
-            this.Controls.Add(this.checkBox_Multiple);
-            this.Controls.Add(this.checkBox_CTRL);
+            this.ClientSize = new System.Drawing.Size(1106, 511);
+            this.Controls.Add(this.label_shape);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.menuStrip1);
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.MaximumSize = new System.Drawing.Size(1280, 720);
-            this.MinimumSize = new System.Drawing.Size(1280, 720);
+            this.MainMenuStrip = this.menuStrip1;
+            this.MaximumSize = new System.Drawing.Size(1122, 550);
+            this.MinimumSize = new System.Drawing.Size(1122, 550);
             this.Name = "Form1";
             this.Text = "Form1";
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseUp);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private CheckBox checkBox_CTRL;
-        private CheckBox checkBox_Multiple;
         private Panel panel1;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem shapesToolStripMenuItem;
+        private ToolStripMenuItem toolStripTextBoxCircle;
+        private ToolStripMenuItem toolStripTextBoxRectangle;
+        private ToolStripMenuItem toolStripTextBoxTriangle;
+        private Label label_shape;
     }
 }
