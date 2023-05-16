@@ -6,19 +6,15 @@ using System.Drawing;
     {
         public class CTriangle : Shape
         {
-            public Size shapeSize { get; set; }
-            public Point p0 { get; set; }
-            public help_vector[] vectors { get; set; }
+            public Help_vector[] vectors { get; set; }
             public Point[] points { get; set; }
-            public CONST_SHAPE name { get; set; }
 
             public CTriangle(int x1, int y1, int x2, int y2)
             {
-                name = new CONST_SHAPE();
                 shapeSize = new Size();
                 p0 = new Point();
 
-                vectors = new help_vector[6];
+                vectors = new Help_vector[6];
                 points= new Point[3];
 
                 name = CONST_SHAPE.Triangle;
@@ -54,15 +50,21 @@ using System.Drawing;
                 points[1] = new Point(p0.X, p0.Y + shapeSize.Height); // B vertex
                 points[2] = new Point(p0.X + shapeSize.Width, p0.Y + shapeSize.Height); // C vertex
 
-                vectors[3] = new help_vector(points[0], points[1]);
-                vectors[4] = new help_vector(points[1], points[2]);
-                vectors[5] = new help_vector(points[2], points[0]);
+                
             }
-            public CTriangle(Shape shape)
+            public CTriangle(CTriangle shape)
             {
+                vectors = new Help_vector[6];
+                vectors = shape.vectors;
+
+                points = new Point[3];
+                points = shape.points;
+
                 shapeSize = new Size();
                 p0 = new Point();
-                name = new CONST_SHAPE();
+
+
+                color = shape.color;
                 shapeSize = shape.shapeSize;
                 p0= shape.p0;
                 name = CONST_SHAPE.Triangle;
@@ -72,22 +74,26 @@ using System.Drawing;
             public override void Draw(Graphics g)
             {
                 Pen pen = new Pen(Color.Black);
-                Brush brush = new SolidBrush(Color.Black);
+                Brush brush = new SolidBrush(color);
                 g.DrawPolygon(pen, points);
                 g.FillPolygon(brush, points);
             }
             public override bool inShape(int x, int y)
             {
-                Point O = new Point(x, y); // O point - into or out triangle
-                vectors[0] = new help_vector(O, points[0]);
-                vectors[1] = new help_vector(O, points[1]);
-                vectors[2] = new help_vector(O, points[2]);
+                Point O = new Point(x, y); // Point O - into or out triangle
+
+                vectors[0] = new Help_vector(O, points[0]);
+                vectors[1] = new Help_vector(O, points[1]);
+                vectors[2] = new Help_vector(O, points[2]);
+                vectors[3] = new Help_vector(points[0], points[1]);
+                vectors[4] = new Help_vector(points[1], points[2]);
+                vectors[5] = new Help_vector(points[2], points[0]);
 
                 int OA_AB = vectors[0] * vectors[3];
                 int OB_BC = vectors[1] * vectors[4];
                 int OC_CA = vectors[2] * vectors[5];
 
-                if (((OA_AB < 0) && (OB_BC < 0) && (OC_CA < 0)) || ((OA_AB >= 0) && (OB_BC >=0) && (OC_CA >= 0)))
+                if (((OA_AB < 0) && (OB_BC < 0) && (OC_CA < 0)) || ((OA_AB > 0) && (OB_BC >0) && (OC_CA > 0))) 
                     return true;
                 return false;
             }
@@ -98,7 +104,7 @@ using System.Drawing;
             {
                 name = CONST_SHAPE.selectedTriangle;
             }
-            public selectedTriangle(Shape shape) : base(shape)
+            public selectedTriangle(CTriangle shape) : base(shape)
             {
                 name = CONST_SHAPE.selectedTriangle;
             }

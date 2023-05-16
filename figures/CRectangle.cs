@@ -2,17 +2,11 @@
 {
     public class CRectangle : Shape
     {
-        public Size shapeSize { get ; set ; }
-        public Point p0 { get ; set; }
-        public CONST_SHAPE name { get ; set; }
-
 
         public CRectangle(int x1, int y1, int x2, int y2)
         {
             shapeSize = new Size();
             p0 = new Point();
-            name = new CONST_SHAPE();
-
             name = CONST_SHAPE.Rectangle;
             Size new_size = new Size();
             Point new_p0 = new Point();
@@ -41,23 +35,27 @@
             shapeSize = new_size;
             p0= new_p0;
         }
-        public CRectangle(Shape shape)
+        public CRectangle(CRectangle shape)
         {
             shapeSize = new Size();
             p0 = new Point();
-            name = new CONST_SHAPE();
+
             shapeSize = shape.shapeSize;
             p0= shape.p0;
             name = CONST_SHAPE.Rectangle;
+            color= shape.color;
         }
 
 
         public override void Draw(Graphics g)
         {
             Pen pen = new Pen(Color.Black);
-            Brush brush = new SolidBrush(Color.Black);
-            g.DrawRectangle(pen, p0.X, p0.Y, shapeSize.Width, shapeSize.Height);
-            g.FillRectangle(brush, p0.X, p0.Y, shapeSize.Width, shapeSize.Height);
+            Brush brush = new SolidBrush(color);
+
+            Rectangle rect = new Rectangle(p0, shapeSize);
+
+            g.DrawRectangle(pen, rect);
+            g.FillRectangle(brush, rect);
         }
         public override bool inShape(int x, int y)
         {
@@ -67,17 +65,15 @@
             return false;
         }
     }
-    public class selectedRectangle : CCircle {
+    public class selectedRectangle : CRectangle {
         public selectedRectangle(int x1, int y1, int x2, int y2) : base(x1, y1, x2, y2)
         {
             name = CONST_SHAPE.selectedRectangle;
         }
-        public selectedRectangle(Shape shape) : base(shape)
+        public selectedRectangle(CRectangle shape) : base(shape)
         {
             name = CONST_SHAPE.selectedRectangle;
         }
-
-
         public override void Draw(Graphics g)
         {
             base.Draw(g);

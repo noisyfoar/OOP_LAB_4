@@ -4,7 +4,7 @@ namespace OOP_LAB_4.factory
     
     public class salavatShapeFactory
     {
-        public Shape createShape(int x1, int y1, int x2, int y2, CONST_SHAPE type)
+        public Shape create(int x1, int y1, int x2, int y2, CONST_SHAPE type)
         {
             Shape shape;
             switch (type)
@@ -23,33 +23,34 @@ namespace OOP_LAB_4.factory
             }
             return shape;
         }
-        public void onSelectShape(Shape shape)
+        public Shape unselect(Shape shape)
+        {
+            switch (shape.name)
+            {
+                case CONST_SHAPE.selectedCircle:
+                    return new CCircle((CCircle)shape);
+
+                case CONST_SHAPE.selectedRectangle:
+                    return new CRectangle((CRectangle)shape);
+
+                case CONST_SHAPE.selectedTriangle:
+                    return new CTriangle((CTriangle)shape);
+            }
+
+            return shape;
+        }
+        public Shape select(Shape shape)
         {
             switch (shape.name)
             {
                 case CONST_SHAPE.Circle:
-                    shape = new selectedCircle(shape);
-                    break;
-                case CONST_SHAPE.selectedCircle:
-                    shape = new CCircle(shape);
-                    break;
-
-
-                case CONST_SHAPE.Rectangle:
-                    shape = new selectedRectangle(shape);
-                    break;
-                case CONST_SHAPE.selectedRectangle:
-                    shape = new CRectangle(shape);
-                    break;
-
-
-                case CONST_SHAPE.Triangle:
-                    shape = new selectedTriangle(shape); 
-                    break;
-                case CONST_SHAPE.selectedTriangle:
-                    shape = new CTriangle(shape);
-                    break;
+                    return new selectedCircle((CCircle)shape);
+                    case CONST_SHAPE.Rectangle:
+                    return new selectedRectangle((CRectangle)shape);
+                    case CONST_SHAPE.Triangle:
+                    return new selectedTriangle((CTriangle)shape);
             }
-        }
+            return shape;
+        }   
     }
 }

@@ -2,13 +2,8 @@
 {
     public class CCircle : Shape
     {
-        public Size shapeSize { get ; set; }
-        public Point p0 { get; set; }
-        public CONST_SHAPE name { get ; set ; }
-
         public CCircle(int x1, int y1, int x2, int y2)
         {
-            name = new CONST_SHAPE();
             shapeSize = new Size();
             p0 = new Point();
             Size new_size = new Size();
@@ -39,29 +34,37 @@
             shapeSize = new_size;
             p0= new_p0;
         }
-        public CCircle(Shape shape)
+        public CCircle(CCircle shape)
         {
-            name = CONST_SHAPE.Circle;
             shapeSize = new Size();
             p0 = new Point();
-            name = new CONST_SHAPE();
-            shapeSize = shape.shapeSize;
 
-            p0= shape.p0;
+            color = shape.color;
+            shapeSize = shape.shapeSize;
+            p0 = shape.p0;
+            name = CONST_SHAPE.Circle;
         }
 
 
         public override void Draw(Graphics g)
         {
             Pen pen = new Pen(Color.Black);
-            Brush brush= new SolidBrush(Color.Black);
+            Brush brush= new SolidBrush(color);
+
             g.FillEllipse(brush, p0.X, p0.Y, shapeSize.Width, shapeSize.Height);
             g.DrawEllipse(pen, p0.X, p0.Y, shapeSize.Width, shapeSize.Height);
         }
         public override bool inShape(int x, int y)
         {
-            Point center = new Point(p0.X + shapeSize.Width / 2, p0.Y + shapeSize.Height / 2);
-            return (Math.Pow(x - center.X, 2) * shapeSize.Height + Math.Pow(y - center.Y, 2) * shapeSize.Width) < (shapeSize.Width * shapeSize.Height);
+
+            double p = ((double)Math.Pow(p0.X + shapeSize.Width/2 - x, 2) / (double)Math.Pow(shapeSize.Width/2, 2)) +
+                ((double)Math.Pow(p0.Y + shapeSize.Height/2 - y, 2) / (double)Math.Pow(shapeSize.Height/2, 2));
+
+            if (p <= 1)
+            {
+                return true;
+            }
+            return false;
         }
     }
     public class selectedCircle : CCircle 
@@ -70,11 +73,10 @@
         {
             name = CONST_SHAPE.selectedCircle;
         }
-        public selectedCircle(Shape shape) : base(shape)
+        public selectedCircle(CCircle shape) : base(shape)
         {
             name = CONST_SHAPE.selectedCircle;
         }
-
 
         public override void Draw(Graphics g)
         {
